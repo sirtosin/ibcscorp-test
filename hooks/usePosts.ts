@@ -159,17 +159,16 @@ export default function usePosts(id?: Props) {
   const editPost = async (e: React.FormEvent) => {
     e?.preventDefault();
     setLoading(true);
-    console.log(values?.title, values?.body);
-    const res = await patchApi(`/posts/${editData?.id}`, {
+    const payload = {
       id: editData?.id,
       title: values?.title,
       body: values?.body,
       userId: editData?.userId,
-    });
+    };
+    const res = await patchApi(`/posts/${editData?.id}`, payload);
     handleReset(payload);
     setLoading(false);
     setEdit(false);
-    navigate.push(`/dashboard/posts`);
     setEditData(null);
     editPostModal();
     Toast({ title: "Post Successful", error: false });
